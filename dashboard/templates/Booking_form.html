@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Form</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Roboto', sans-serif;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      border-radius: 10px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="my-4">Booking Form</h1>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="client_name">Client Name</label>
+        <input type="text" class="form-control" id="client_name" name="client_name" value="{{ booking.client_name }}" required>
+      </div>
+      <div class="form-group">
+        <label for="contact_information">Contact Information</label>
+        <input type="text" class="form-control" id="contact_information" name="contact_information" value="{{ booking.contact_information }}" required>
+      </div>
+      <div class="form-group">
+        <label for="event_date">Event Date</label>
+        <input type="date" class="form-control" id="event_date" name="event_date" value="{{ booking.event_date }}" required>
+      </div>
+      <div class="form-group">
+        <label for="start_time">Start Time</label>
+        <input type="time" class="form-control" id="start_time" name="start_time" value="{{ booking.start_time }}" required>
+      </div>
+      <div class="form-group">
+        <label for="end_time">End Time</label>
+        <input type="time" class="form-control" id="end_time" name="end_time" value="{{ booking.end_time }}" required>
+      </div>
+      <div class="form-group">
+        <label for="event_type">Event Type</label>
+        <input type="text" class="form-control" id="event_type" name="event_type" value="{{ booking.event_type }}" required>
+      </div>
+      <div class="form-group">
+        <label for="design_service">Design Service</label>
+        <select class="form-control" id="design_service" name="design_service">
+          <option value="Yes" {% if booking.design_service %}selected{% endif %}>Yes</option>
+          <option value="No" {% if not booking.design_service %}selected{% endif %}>No</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="number_of_guests">Number of Guests</label>
+        <input type="number" class="form-control" id="number_of_guests" name="number_of_guests" value="{{ booking.number_of_guests }}" required>
+      </div>
+      <div class="form-group">
+        <label for="total_cost">Total Cost</label>
+        <input type="number" class="form-control" id="total_cost" name="total_cost" value="{{ booking.total_cost }}" required>
+      </div>
+      <div class="form-group">
+        <label for="downpayment">Downpayment</label>
+        <input type="number" class="form-control" id="downpayment" name="downpayment" value="{{ booking.downpayment }}" required>
+      </div>
+      <div class="form-group">
+        <label for="remaining_payment">Remaining Payment</label>
+        <input type="number" class="form-control" id="remaining_payment" name="remaining_payment" value="{{ booking.remaining_payment }}" required>
+      </div>
+      <div class="form-group">
+        <label for="payment_status">Payment Status</label>
+        <input type="text" class="form-control" id="payment_status" name="payment_status" value="{{ booking.payment_status }}" required>
+      </div>
+      <div class="form-group">
+        <label for="event_status">Event Status</label>
+        <input type="text" class="form-control" id="event_status" name="event_status" value="{{ booking.event_status }}" required>
+      </div>
+      <button type="submit" class="btn btn-primary">{{ button }}</button>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

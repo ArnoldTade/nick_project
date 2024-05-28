@@ -1,0 +1,16 @@
+/* static/dashboard/style.css */
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}

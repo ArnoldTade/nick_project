@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+</head>
+
+<body>
+<div class="d-flex">
+{% include 'structure/nav.html' %}
+<div class="container container-calendar">
+  <br>
+  <div class="row">
+    <div class="col-sm">
+      {% if all_events %}
+      <div id="calendar"></div>
+      {% else %}
+      <p class="fs-5 text-start">No Client</p>
+
+      {% endif %}
+
+      <hr>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <div class="mb-3">
+                {{ bookform.client_name.label_tag }} {{ bookform.client_name }}
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                {{ bookform.contact_information.label_tag }} {{ bookform.contact_information }}
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                {{ bookform.event_date.label_tag }} {{ bookform.event_date }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <div class="mb-3">
+                {{ bookform.start_time.label_tag }} {{ bookform.start_time }}
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                {{ bookform.end_time.label_tag }} {{ bookform.end_time }}
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                {{ bookform.event_type.label_tag }} {{ bookform.event_type }}
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                {{ bookform.design_service.label_tag }} {{ bookform.design_service }}
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm">
+              <div class="mb-3">
+                {{ bookform.number_of_guests.label_tag }} {{ bookform.number_of_guests }}
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                {{ bookform.total_cost.label_tag }} {{ bookform.total_cost }}
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                {{ bookform.downpayment.label_tag }} {{ bookform.downpayment }}
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                {{ bookform.remaining_payment.label_tag }} {{ bookform.remaining_payment }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <div class="mb-3">
+                {{ bookform.payment_status.label_tag }} {{ bookform.payment_status }}
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="mb-3">
+                {{ bookform.event_status.label_tag }} {{ bookform.event_status }}
+              </div>
+            </div>
+          </div>
+
+        </div>
+       
+        <button type="submit" class="btn btn-warning btn-sm">Update</button>
+      </form>
+    </div>
+    <div class="col-sm">
+    <br>
+    <br>
+    <br>
+      <table class="table table-dark table-sm">
+        <thead>
+          <th style="text-align:center;">Name</th>
+          <th>Action</th>
+        </thead>
+        <tbody>
+            {% for event in all_events %}
+          <tr>
+            <td style="text-align:center;">{{event.client_name}}</td>
+            <td style="align-items:center;">
+                <a href="{% url "view-calendar" id=event.id %}" type="button" class="btn btn-info btn-sm">View</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+  </div>
+</div>
+    
+<script>
+    //Calendar
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+  
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        
+        events: {{ bookings | safe }}
+      });
+  
+      calendar.render();
+    });
+  
+  </script>
+  {% include 'structure/_footer.html' %}
